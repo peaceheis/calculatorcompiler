@@ -1,9 +1,14 @@
 import math
-_WRITTEN_NUMBERS = ("zero","one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "hundred", "thousand", "million", "billion", "trillion")
+_WRITTEN_NUMBERS = ("zero","one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten","eleven", "twelve", "thirteen", "forteen", "fifteen", "sixteen", 
+                    "seventeen", "eighteen", "nineteen", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety", "hundred", "thousand", "million", "billion", "trillion")
 _ABLE_TO_BE_MULTIPLIED = ("hundred", "thousand", "million", "billion", "trillion")
-_ABLE_TO_BE_MULTIPLIERS = ("one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "hundred")
-_NUMBERS = (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100, 1000, 1000000, 1000000000, 1000000000000)
-_WRITTEN_OPERATORS = ("plus", "minus", "times", "divided by", "square root of", "squared", "cubed", "to the power of", "*", "+", "-","/", "(", ")", "^")
+_ABLE_TO_BE_MULTIPLIERS = ("one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", 
+                           "eleven", "twelve", "thirteen", "forteen", "fifteen", "sixteen", "seventeen", 
+                           "eighteen", "nineteen", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" "hundred"
+                           "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", 
+                           "20", "30", "40", "50", "60", "70", "80", "90", "100")
+_NUMBERS = ("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "30", "40", "50", "60", "70", "80", "90", "100", "1000", "1000000", "1000000000", "1000000000000")
+_WRITTEN_OPERATORS = ("plus", "minus", "times", "divided by", "sqrt(", "squared", "cubed", "to the power of", "*", "+", "-","/", "(", ")", "^")
 _OPERATORS = ("+", "-", "*", "/", "math.sqrt(", "**2", "**3", "**", "*", "+", "-", "/", "(", ")", "**")
 
 #this class is largely an assistance to Parser, which contains each individual word,
@@ -56,7 +61,7 @@ class Parser() :
     #numbers and operators.
     @staticmethod
     def decide_if_number(word) : 
-        if type(word) == int : 
+        if word in _NUMBERS : 
             return 1
         if word in _WRITTEN_NUMBERS : 
             return 1
@@ -93,11 +98,11 @@ class Parser() :
     #the symbols list will be turned into a string evaluatable by python, essentially
     #being compiled (hence the name calculatorcomplier)
     def translate(self) :
-        python_evaluatable = ""
+        python_evaluatable = "import math; "
         for symbol in self.symbols : 
-            if symbol.type_of_symbol == "number" : 
+            if symbol.type_of_symbol == "number" :              
                 if symbol.value in _WRITTEN_NUMBERS :
-                    x = _WRITTEN_NUMBERS.index(symbol.value)
+                    x = _WRITTEN_NUMBERS.index(symbol.value)                    
                     python_evaluatable += str(_NUMBERS[x])
                 else : 
                     python_evaluatable += str(x)
@@ -107,7 +112,7 @@ class Parser() :
                     x = _WRITTEN_NUMBERS.index(symbol.value)
                     python_evaluatable += str(_NUMBERS[x]) + "*"
                 else : 
-                    python_evaluatable += str(x) + "*"
+                    python_evaluatable += str(symbol) + "*"
 
             if symbol.type_of_symbol == "operator" : 
                 x = _WRITTEN_OPERATORS.index(symbol.value)
