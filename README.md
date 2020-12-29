@@ -14,5 +14,6 @@ compiling functionality. <a href = "interface.py">interface.py</a> is currently 
 <ul>
   <li>Proper implementation of an terminal-based interface</li>
   <li>Better error handling and more dynamic features</li>
+  <li>Support for multi-word operators like <i>multiplied by</>, possibly with the use of regex. 
   <li>Revamp of <code>Symbol</code> to be abstract, and have child classes <code>Multiplier</code>, <code>Number</code>, and <code>Operator</code></li>.
  </ul>
